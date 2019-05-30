@@ -1,11 +1,6 @@
 # WEB_BruteForce
 
-## Práctica de SSII
-
-Realizar un ataque por diccionario a un servidor web creado con un login básico. El script se programará
-en Python.
-
-Uso del script:
+Script en Python que realiza un ataque por diccionario a una página web
 
 ```python 
 pip install requests
