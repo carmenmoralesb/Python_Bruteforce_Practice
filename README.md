@@ -4,5 +4,5 @@ Small cybersecurity practice simulating a dictionary attack, this use the file r
 
 ```python 
 pip install requests
-bruteforceprincipal.py [victim ip] [number of threads]
+bruteforceprincipal.py [victim's ip] [number of threads]
 ```
