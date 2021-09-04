@@ -1,6 +1,6 @@
-# WEB_BruteForce
+# Bruteforce Python Example
 
-Script en Python que realiza un ataque por diccionario a una página web
+Small cybersecurity practice simulating a dictionary attack, this use the file rockyou.txt but you can use whathever you want.
 
 ```python 
 pip install requests
